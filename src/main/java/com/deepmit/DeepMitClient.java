@@ -4,6 +4,7 @@ import java.net.URI;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -12,11 +13,39 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class DeepMitClient {
-    private static final String API_KEY = "API KEY";
+    private static final String API_KEY = "API_KEY";
     private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
     private static final ExecutorService executor = Executors.newFixedThreadPool(4);
     private static final HttpClient client = HttpClient.newBuilder().executor(executor).build();
+
+    public static void start() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nDeepMit iniciado! Digite sua mensagem ou um comando (/help para ver opções).");
+
+        while (true) {
+            String userInput = scanner.nextLine();
+
+            if (userInput.startsWith("/")) {
+                // Algum esquema para pegar os comandos e executar eles
+                switch (userInput) {
+                    case "/help":
+                        System.out.println("Comandos disponíveis:");
+                        System.out.println("/exit - Sair do chat");
+                        break;
+                    default:
+                        System.out.println("Comando inválido!");
+                }
+            } else {
+                System.out.println("Pesquisando a resposta, por favor aguarde...");
+
+                String response = getResponse(userInput);
+
+                System.out.println("Resposta: " + response);
+            }
+
+        }
+    }
 
     public static String getResponse(String userInput) {
         JSONObject jsonBody = new JSONObject();
