@@ -21,7 +21,7 @@ public class DeepMitClient {
 
     public static void start() {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("\nDeepMit iniciado! Digite sua mensagem ou um comando (/help para ver opções).");
+        System.out.println("\nDeepMit started! Type your message or a command (/help to see options).");
 
         while (true) {
             String userInput = scanner.nextLine();
@@ -30,18 +30,21 @@ public class DeepMitClient {
                 // Algum esquema para pegar os comandos e executar eles
                 switch (userInput) {
                     case "/help":
-                        System.out.println("Comandos disponíveis:");
-                        System.out.println("/exit - Sair do chat");
+                        System.out.println("Available commands:");
+                        System.out.println("/exit - Exit the chat");
                         break;
+                    case "/exit":
+                        System.out.println("Exiting chat...");
+                        return;
                     default:
-                        System.out.println("Comando inválido!");
+                        System.out.println("Invalid command!");
                 }
             } else {
-                System.out.println("Pesquisando a resposta, por favor aguarde...");
+                System.out.println("Searching for response, please wait...");
 
                 String response = getResponse(userInput);
 
-                System.out.println("Resposta: " + response);
+                System.out.println("Response: " + response);
             }
 
         }

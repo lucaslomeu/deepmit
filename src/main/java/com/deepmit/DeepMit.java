@@ -1,5 +1,6 @@
 package com.deepmit;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 /**
@@ -12,13 +13,13 @@ public class DeepMit {
 
         while (true) {
             System.out.println("=================================");
-            System.out.println("     BEM-VINDO AO DEEPMIT        ");
+            System.out.println("     WELCOME TO DEEPMIT          ");
             System.out.println("=================================");
-            System.out.println("1. Iniciar Chat");
-            System.out.println("2. Ver Histórico");
-            System.out.println("3. Exportar Histórico");
-            System.out.println("4. Sair");
-            System.out.print("Escolha uma opção: ");
+            System.out.println("1. Start Chat");
+            System.out.println("2. Show History");
+            System.out.println("3. Export Histórico");
+            System.out.println("4. Exit");
+            System.out.print("Choose an option: ");
 
             String option = scanner.nextLine();
 
@@ -27,16 +28,16 @@ public class DeepMit {
                     DeepMitClient.start();
                     break;
                 case "2":
-                    System.out.println("Histórico");
+                    System.out.println("History");
                     break;
                 case "3":
-                    System.out.println("Exportar Histórico");
+                    System.out.println("Export History");
                     break;
                 case "4":
-                    System.out.println("Saindo...");
+                    System.out.println("Exiting...");
                     return;
                 default:
-                    System.out.println("Opção inválida!");
+                    System.out.println("Invalid option!");
             }
 
         }
