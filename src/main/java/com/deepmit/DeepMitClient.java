@@ -12,8 +12,10 @@ import java.util.concurrent.TimeUnit;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.deepmit.command.History;
+
 public class DeepMitClient {
-    private static final String API_KEY = "API_KEY";
+    private static final String API_KEY = System.getenv("API_KEY");
     private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
     private static final ExecutorService executor = Executors.newFixedThreadPool(4);
@@ -31,8 +33,19 @@ public class DeepMitClient {
                 switch (userInput) {
                     case "/help":
                         System.out.println("Available commands:");
+                        System.out.println("/history - Display chat history");
+                        System.out.println("/time - Display current time");
                         System.out.println("/exit - Exit the chat");
                         break;
+
+                    case "/history":
+                        History.displayHistory();
+                        break;
+
+                    case "/time":
+                        System.out.println("Current time: " + java.time.LocalTime.now());
+                        break;
+
                     case "/exit":
                         System.out.println("Exiting chat...");
                         return;
@@ -41,10 +54,8 @@ public class DeepMitClient {
                 }
             } else {
                 System.out.println("Searching for response, please wait...");
-
                 String response = getResponse(userInput);
-
-                System.out.println("Response: " + response);
+                System.out.println("Response: " + getResponse(userInput));
             }
 
         }
@@ -72,9 +83,13 @@ public class DeepMitClient {
             if (response.statusCode() == 200) {
                 JSONObject responseBody = new JSONObject(response.body());
 
-                return responseBody.getJSONArray("choices").getJSONObject(0).getJSONObject("message")
-                        .getString("content");
+                History.addEntry(userInput, responseBody.getJSONArray("choices").getJSONObject(0)
+                        .getJSONObject("message")
+                        .getString("content"));
 
+                return responseBody.getJSONArray("choices").getJSONObject(0)
+                        .getJSONObject("message")
+                        .getString("content");
             } else {
                 return "Sorry, I couldn't understand your message.";
             }

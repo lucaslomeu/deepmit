@@ -3,10 +3,8 @@ package com.deepmit;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
-/**
- * Hello world!
- *
- */
+import com.deepmit.command.History;
+
 public class DeepMit {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -28,7 +26,7 @@ public class DeepMit {
                     DeepMitClient.start();
                     break;
                 case "2":
-                    System.out.println("History");
+                    History.start();
                     break;
                 case "3":
                     System.out.println("Export History");

@@ -27,6 +27,9 @@
 hs_err_pid*
 replay_pid*
 
+# Environment files
+.env
+
 ### Maven ###
 target/
 pom.xml.tag
