@@ -15,7 +15,7 @@ import org.json.JSONObject;
 import com.deepmit.command.History;
 
 public class DeepMitClient {
-    private static final String API_KEY = System.getenv("API_KEY");
+    private static final String API_KEY = "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";
     private static final String API_URL = "https://openrouter.ai/api/v1/chat/completions";
 
     private static final ExecutorService executor = Executors.newFixedThreadPool(4);
@@ -29,21 +29,25 @@ public class DeepMitClient {
             String userInput = scanner.nextLine();
 
             if (userInput.startsWith("/")) {
-                // Algum esquema para pegar os comandos e executar eles
                 switch (userInput) {
                     case "/help":
                         System.out.println("Available commands:");
                         System.out.println("/history - Display chat history");
                         System.out.println("/time - Display current time");
+                        System.out.println("/clear - Clear chat history");
                         System.out.println("/exit - Exit the chat");
+                        break;
+
+                    case "/time":
+                        System.out.println("Current time: " + java.time.LocalTime.now());
                         break;
 
                     case "/history":
                         History.displayHistory();
                         break;
 
-                    case "/time":
-                        System.out.println("Current time: " + java.time.LocalTime.now());
+                    case "/clear":
+                        History.clearHistory();
                         break;
 
                     case "/exit":

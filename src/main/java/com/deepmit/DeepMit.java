@@ -15,7 +15,7 @@ public class DeepMit {
             System.out.println("=================================");
             System.out.println("1. Start Chat");
             System.out.println("2. Show History");
-            System.out.println("3. Export Histórico");
+            System.out.println("3. Export History");
             System.out.println("4. Exit");
             System.out.print("Choose an option: ");
 

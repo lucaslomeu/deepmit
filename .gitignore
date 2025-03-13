@@ -30,6 +30,9 @@ replay_pid*
 # Environment files
 .env
 
+# History files
+history.txt
+
 ### Maven ###
 target/
 pom.xml.tag
