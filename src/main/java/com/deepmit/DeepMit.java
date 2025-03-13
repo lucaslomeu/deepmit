@@ -29,7 +29,7 @@ public class DeepMit {
                     History.start();
                     break;
                 case "3":
-                    System.out.println("Export History");
+                    History.exportHistory();
                     break;
                 case "4":
                     System.out.println("Exiting...");
