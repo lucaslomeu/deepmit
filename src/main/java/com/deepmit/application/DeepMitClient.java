@@ -1,4 +1,4 @@
-package com.deepmit;
+package com.deepmit.application;
 
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -12,6 +12,7 @@ import java.util.concurrent.TimeUnit;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import com.deepmit.command.CommandExecutor;
 import com.deepmit.command.History;
 
 public class DeepMitClient {
@@ -20,6 +21,7 @@ public class DeepMitClient {
 
     private static final ExecutorService executor = Executors.newFixedThreadPool(4);
     private static final HttpClient client = HttpClient.newBuilder().executor(executor).build();
+    private static final CommandExecutor commandExecutor = new CommandExecutor();
 
     public static void start() {
         Scanner scanner = new Scanner(System.in);
@@ -29,33 +31,7 @@ public class DeepMitClient {
             String userInput = scanner.nextLine();
 
             if (userInput.startsWith("/")) {
-                switch (userInput) {
-                    case "/help":
-                        System.out.println("Available commands:");
-                        System.out.println("/history - Display chat history");
-                        System.out.println("/time - Display current time");
-                        System.out.println("/clear - Clear chat history");
-                        System.out.println("/exit - Exit the chat");
-                        break;
-
-                    case "/time":
-                        System.out.println("Current time: " + java.time.LocalTime.now());
-                        break;
-
-                    case "/history":
-                        History.displayHistory();
-                        break;
-
-                    case "/clear":
-                        History.clearHistory();
-                        break;
-
-                    case "/exit":
-                        System.out.println("Exiting chat...");
-                        return;
-                    default:
-                        System.out.println("Invalid command!");
-                }
+                commandExecutor.execute(userInput, scanner);
             } else {
                 System.out.println("Searching for response, please wait...");
                 String response = getResponse(userInput);
@@ -107,6 +83,7 @@ public class DeepMitClient {
 
     public static void shutdown() {
         executor.shutdown();
+
         try {
             if (!executor.awaitTermination(60, TimeUnit.SECONDS)) {
                 executor.shutdownNow();
