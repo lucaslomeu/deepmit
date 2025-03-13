@@ -6,7 +6,10 @@ Welcome to DeepMit! This project is a simple chat application that interacts wit
 
 - **Start Chat**: Initiate a chat session with the AI.
 - **Show History**: Display the history of chat interactions.
-- **Export History**: Export the chat history (feature to be implemented).
+- **Export History**: Export the chat history.
+- **Clear History**: Clear all history.
+- **Time**: Print current time.
+- **Help**: See all commands.
 - **Exit**: Exit the application.
 
 ## Getting Started 🚀
