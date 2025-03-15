@@ -6,7 +6,7 @@ Welcome to DeepMit! This project is a simple chat application that interacts wit
 
 - **Start Chat**: Initiate a chat session with the AI.
 - **Show History**: Display the history of chat interactions.
-- **Export History**: Export the chat history.
+- **Export History**: Export the chat history in text, JSON, or CSV format.
 - **Clear History**: Clear all history.
 - **Time**: Print current time.
 - **Help**: See all commands.
@@ -60,11 +60,6 @@ Contributions are welcome! Please fork the repository and submit a pull request.
 ## License 📄
 
 This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments 🙏
-
-- Thanks to the developers of the libraries and tools used in this project.
-- Special thanks to the AI model for providing responses.
 
 ---
 
