@@ -1,19 +1,17 @@
 package com.deepmit.application;
 
-import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
-import com.deepmit.command.History;
 import com.deepmit.service.HistoryService;
 
 public class DeepMit {
     private static final Scanner scanner = new Scanner(System.in);
     private static final HistoryService historyService = new HistoryService();
-    private static final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-    private static final long INACTIVITY_LIMIT = 5
+    private static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
+    private static final long INACTIVITY_LIMIT = 5;
 
     public static void main(String[] args) {
         new DeepMit().run();
@@ -59,12 +57,13 @@ public class DeepMit {
 
     private void handleInactivity() {
         System.out.println("No activity detected for 5 minutes. Exiting...");
-        shutdown();
+
         System.exit(0);
     }
 
     private void resetInactivityTimer() {
         scheduler.shutdownNow();
+        scheduler = Executors.newScheduledThreadPool(1);
         scheduler.schedule(this::handleInactivity, INACTIVITY_LIMIT, TimeUnit.MINUTES);
     }
 

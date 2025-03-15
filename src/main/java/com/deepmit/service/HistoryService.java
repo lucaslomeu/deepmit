@@ -3,7 +3,6 @@ package com.deepmit.service;
 import com.deepmit.command.History;
 
 public class HistoryService {
-    private final ExportService exportService = new ExportService();
 
     public void displayHistory() {
         History.displayHistory();
@@ -14,7 +13,7 @@ public class HistoryService {
     }
 
     public void deleteHistory() {
-        History.deleteHistory();
+        History.deleteHistoryFile();
     }
 
     public void clearHistory() {

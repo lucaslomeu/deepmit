@@ -2,12 +2,10 @@ package com.deepmit.command;
 
 import java.util.Scanner;
 
-import com.deepmit.service.ExportService;
 import com.deepmit.service.HistoryService;
 
 public class CommandExecutor {
     private final HistoryService historyService = new HistoryService();
-    private final ExportService exportService = new ExportService();
 
     public void execute(String command, Scanner scanner) {
         switch (command) {
@@ -38,7 +36,10 @@ public class CommandExecutor {
                 break;
 
             case "/time":
-                System.out.println("Current time: " + java.time.LocalTime.now());
+                java.time.LocalDateTime now = java.time.LocalDateTime.now();
+                java.time.format.DateTimeFormatter formatter = java.time.format.DateTimeFormatter
+                        .ofPattern("HH:mm:ss, EEEE, MMMM dd");
+                System.out.println("Current time: " + now.format(formatter));
                 break;
 
             case "/exit":

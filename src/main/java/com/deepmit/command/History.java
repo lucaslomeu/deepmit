@@ -1,15 +1,21 @@
 package com.deepmit.command;
 
 import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+
 public class History {
+    private static final String FILE_PATH = "history.txt";
+    private static final String JSON_FILE_PATH = "history.json";
+    private static final String CSV_FILE_PATH = "history.csv";
     private static Map<String, String> historyMap = new LinkedHashMap<>();
 
     public static void addEntry(String input, String output) {
@@ -26,11 +32,11 @@ public class History {
         System.out.println("           HISTORY               ");
         System.out.println("=================================");
 
-       historyMap.forEach((key, value) -> {
+        historyMap.forEach((key, value) -> {
             System.out.println("Input: " + key);
             System.out.println("Output: " + value);
             System.out.println("=================================");
-       })
+        });
 
         System.out.println("End of history.");
         System.out.println("Do you want to export the history? (y/n)");
@@ -92,11 +98,11 @@ public class History {
             String choice = scanner.nextLine();
 
             if (choice.equalsIgnoreCase("y")) {
-                Runtime.getRuntime().exec("notepad " + filePath);
+                Runtime.getRuntime().exec("notepad " + FILE_PATH);
                 System.out.println("File opened.");
                 System.out.println("How would you like to proceed? (/help to see options)");
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -131,6 +137,8 @@ public class History {
     public static void deleteHistoryFile() {
         try {
             Files.deleteIfExists(Paths.get(FILE_PATH));
+            Files.deleteIfExists(Path.of(JSON_FILE_PATH));
+            Files.deleteIfExists(Path.of(CSV_FILE_PATH));
             System.out.println("History file deleted.");
         } catch (Exception e) {
             System.out.println("Failed to delete history file.");
