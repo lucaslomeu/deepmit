@@ -15,8 +15,9 @@ public class CommandExecutor {
                 System.out.println("Available commands:");
                 System.out.println("/history - Display chat history");
                 System.out.println("/export - Export chat history");
-                System.out.println("/time - Display current time");
+                System.out.println("/delete - Delete chat history");
                 System.out.println("/clear - Clear chat history");
+                System.out.println("/time - Display current time");
                 System.out.println("/exit - Exit the chat");
                 break;
 
@@ -25,15 +26,19 @@ public class CommandExecutor {
                 break;
 
             case "/export":
-                exportService.exportHistory();
+                historyService.exportHistory();
                 break;
 
-            case "/time":
-                System.out.println("Current time: " + java.time.LocalTime.now());
+            case "/delete":
+                historyService.deleteHistory();
                 break;
 
             case "/clear":
                 History.clearHistory();
+                break;
+
+            case "/time":
+                System.out.println("Current time: " + java.time.LocalTime.now());
                 break;
 
             case "/exit":

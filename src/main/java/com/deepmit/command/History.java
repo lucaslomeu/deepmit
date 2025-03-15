@@ -41,7 +41,91 @@ public class History {
         if (choice.equalsIgnoreCase("y")) {
             exportHistory();
         }
+    }
 
+    public static void exportHistory() {
+        if (historyMap.isEmpty()) {
+            System.out.println("No history available.");
+            return;
+        }
+
+        System.out.println("Choose a format to export the history:");
+        System.out.println("1. Text file");
+        System.out.println("2. JSON file");
+        System.out.println("3. CSV file");
+
+        Scanner scanner = new Scanner(System.in);
+        String choice = scanner.nextLine();
+
+        System.out.println("Exporting history...");
+
+        switch (choice) {
+            case "1":
+                exportToTextFile();
+                break;
+            case "2":
+                exportToJsonFile();
+                break;
+            case "3":
+                exportToCSVFile();
+                break;
+            default:
+                System.out.println("Invalid choice.");
+        }
+    }
+
+    public static void exportToTextFile() {
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(FILE_PATH))) {
+            for (Map.Entry<String, String> entry : historyMap.entrySet()) {
+                writer.write("Input: " + entry.getKey());
+                writer.newLine();
+                writer.write("Output: " + entry.getValue());
+                writer.newLine();
+                writer.write("=================================");
+                writer.newLine();
+            }
+
+            System.out.println("History exported.");
+            System.out.println("Open the file? (y/n)");
+
+            Scanner scanner = new Scanner(System.in);
+            String choice = scanner.nextLine();
+
+            if (choice.equalsIgnoreCase("y")) {
+                Runtime.getRuntime().exec("notepad " + filePath);
+                System.out.println("File opened.");
+                System.out.println("How would you like to proceed? (/help to see options)");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void exportToJsonFile() {
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            mapper.enable(SerializationFeature.INDENT_OUTPUT);
+            mapper.writeValue(Paths.get(JSON_FILE_PATH).toFile(), historyMap);
+            System.out.println("History exported to JSON file.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void exportToCSVFile() {
+        try (BufferedWriter writer = Files.newBufferedWriter(Paths.get(CSV_FILE_PATH))) {
+            writer.write("Input,Output");
+            writer.newLine();
+
+            for (Map.Entry<String, String> entry : historyMap.entrySet()) {
+                writer.write(entry.getKey() + "," + entry.getValue());
+                writer.newLine();
+            }
+
+            System.out.println("History exported to CSV file.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void deleteHistoryFile() {
