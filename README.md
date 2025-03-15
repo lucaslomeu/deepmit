@@ -46,7 +46,7 @@ Welcome to DeepMit! This project is a simple chat application that interacts wit
 
 2. Run the application:
    ```sh
-   mvn exec:java -Dexec.mainClass="com.deepmit.DeepMit"
+   mvn exec:java -Dexec.mainClass="com.deepmit.application.DeepMit"
    ```
 
 ### Usage
